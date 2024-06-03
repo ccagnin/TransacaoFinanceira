@@ -4,11 +4,11 @@ public class Transacao
 {
     public int CorrelationId { get; set; }
     public string DateTime { get; set; }
-    public int ContaOrigem { get; set; }
-    public int ContaDestino { get; set; }
+    public long ContaOrigem { get; set; }
+    public long ContaDestino { get; set; }
     public decimal Valor { get; set; }
     
-    public Transacao(int correlationId, string dateTime, int contaOrigem, int contaDestino, decimal valor)
+    public Transacao(int correlationId, string dateTime, long contaOrigem, long contaDestino, decimal valor)
     {
         CorrelationId = correlationId;
         DateTime = dateTime;
