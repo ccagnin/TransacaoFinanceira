@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "noS5VMivE7EKpPCij+K8xiRpb8I033As9UWtV00aIPxxh55kBkHTPnAaAuYM8dcBNN6u8j7krKpM8hFaakYatw==",
+  "success": true,
+  "projectFilePath": "/Users/caroline/Developer/teste_itau/TransacaoFinanceira/TransacaoFinanceira.csproj",
+  "expectedPackageFiles": [
+    "/Users/caroline/.nuget/packages/microsoft.netcore.app.ref/5.0.0/microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "/Users/caroline/.nuget/packages/microsoft.aspnetcore.app.ref/5.0.0/microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "/Users/caroline/.nuget/packages/microsoft.netcore.app.host.osx-x64/5.0.17/microsoft.netcore.app.host.osx-x64.5.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}
