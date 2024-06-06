@@ -1,38 +1,54 @@
 using System;
 using TransacaoFinanceira.Data;
 using TransacaoFinanceira.Models;
+using TransacaoFinanceira.Exceptions;
 
-namespace TransacaoFinanceira.Services;
-
-public class TransacaoService : ITransacaoService
+namespace TransacaoFinanceira.Services
 {
-    private readonly IContaRepository _contaRepository;
-    
-    public TransacaoService(IContaRepository contaRepository)
+    public class TransacaoService : ITransacaoService
     {
-        _contaRepository = contaRepository;
-    }
-    public void Transferir(Transacao transacao)
-    {
-        var contaOrigem = _contaRepository.GetSaldo(transacao.ContaOrigem);
-        var contaDestino = _contaRepository.GetSaldo(transacao.ContaDestino);
-        
-        if (contaOrigem == null || contaDestino == null)
+        private readonly IContaRepository _contaRepository;
+        private readonly ITransacaoRepository _transacaoRepository;
+        private readonly object _lock = new object();
+
+        public TransacaoService(IContaRepository contaRepository, ITransacaoRepository transacaoRepository)
         {
-            throw new Exception("Conta não encontrada");
+            _contaRepository = contaRepository;
+            _transacaoRepository = transacaoRepository;
         }
-        
-        if (contaOrigem.Saldo < transacao.Valor)
+
+        public void Transferir(Transacao transacao)
         {
-            throw new Exception("Saldo insuficiente");
+            lock (_lock)
+            {
+                var contaOrigem = _contaRepository.GetSaldo(transacao.ContaOrigem);
+                var contaDestino = _contaRepository.GetSaldo(transacao.ContaDestino);
+
+                if (contaOrigem == null)
+                {
+                    throw new ContaNaoEncontradaException(transacao.ContaOrigem);
+                }
+
+                if (contaDestino == null)
+                {
+                    throw new ContaNaoEncontradaException(transacao.ContaDestino);
+                }
+
+                if (contaOrigem.Saldo < transacao.Valor)
+                {
+                    throw new SaldoInsuficienteException(transacao.CorrelationId);
+                }
+
+                contaOrigem.Saldo -= transacao.Valor;
+                contaDestino.Saldo += transacao.Valor;
+
+                _contaRepository.AtualizarSaldo(contaOrigem);
+                _contaRepository.AtualizarSaldo(contaDestino);
+
+                _transacaoRepository.AdicionarTransacao(transacao);
+
+                Console.WriteLine($"Transação número {transacao.CorrelationId} foi efetivada com sucesso! Novos saldos: Conta Origem: {contaOrigem.Saldo} | Conta Destino: {contaDestino.Saldo}");
+            }
         }
-        
-        contaOrigem.Saldo -= transacao.Valor;
-        contaDestino.Saldo += transacao.Valor;
-        
-        _contaRepository.AtualizarSaldo(contaOrigem);
-        _contaRepository.AtualizarSaldo(contaDestino);
-        
-        Console.WriteLine($"Transferência de {transacao.Valor} realizada com sucesso");
     }
 }

@@ -42,6 +42,20 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Serilog": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "Serilog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
