@@ -43,6 +43,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
             "Serilog": {
               "target": "Package",
               "version": "[4.0.0, )"
@@ -54,6 +58,14 @@
             "Serilog.Sinks.Console": {
               "target": "Package",
               "version": "[5.0.1, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.8.1, )"
+            },
+            "xunit.assert": {
+              "target": "Package",
+              "version": "[2.8.1, )"
             }
           },
           "imports": [

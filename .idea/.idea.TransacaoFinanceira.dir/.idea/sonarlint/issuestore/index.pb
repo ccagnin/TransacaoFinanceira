@@ -35,3 +35,7 @@ F
 Domain/Models/Conta.cs,2/5/250d211cbd8136e3b26ceb073a2c1ba76017e8eb
 >
 Logs/Logger.cs,1/8/18f581ffd89cf42d93a724bb9279b244f558ca39
+V
+&TransacaoFinanceira.Tests/UnitTest1.cs,5/e/5e3a9d7180f145fd86235a80dd58b74b8f57ac1a
+b
+2TransacaoFinanceira.Tests/TransacaoServiceTests.cs,a/1/a1c3d9044d68cedd264ab6020ccc63552156062b
